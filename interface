@@ -1,0 +1,36 @@
+interface paymentMethod{
+    float money = 1; // we have to provide it a value, otherwise it will throw a error
+    boolean processPayment(); // can't change its access modifier
+    boolean refundPayment();
+}
+class upi implements paymentMethod{
+    protected float money;
+    protected void getPayment(float money){
+        this.money = money;
+    }
+    public boolean processPayment(){ // we have to provide it only public access modifier, can't change
+        if(money>0)
+            return true;
+        return false;
+    }
+    public boolean refundPayment(){
+        if(processPayment())
+            return true;
+        return false;
+    }
+}
+public class practice{
+    public static void main(String[] args){
+        upi payment = new upi();
+        payment.getPayment(0); // if payment is zero or less it will faill
+        // if(payment.processPayment())
+        //     System.out.println(payment.money+" Rs Payment sucessfull");
+        // else
+        //     System.out.println("Payment failed");
+        
+        if(payment.refundPayment())
+            System.out.println(payment.money+" Rs refund sucessfull");
+        else
+            System.out.println("Refund failed");
+    }
+}
